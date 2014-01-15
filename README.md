@@ -14,7 +14,15 @@ brew install packer
 
 ```
 $ cd my-packer-template-files/centos6.5
-$ packer build -only=virtualbox template.json
+$ packer build -only=virtualbox-iso template.json
+```
+
+## packer fix
+
+
+```
+$ packer fix template.json > new.json
+$ mv new.json template.json
 ```
 
 ## vagrant box add

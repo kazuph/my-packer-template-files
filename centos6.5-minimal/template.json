@@ -9,9 +9,9 @@
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
       "guest_os_type": "RedHat_64",
       "http_directory": "http",
-      "iso_checksum": "4a5fa01c81cc300f4729136e28ebe600",
+      "iso_checksum": "0d9dc37b5dd4befa1c440d2174e88a87",
       "iso_checksum_type": "md5",
-      "iso_url": "http://ftp.riken.jp/Linux/centos/6.4/isos/x86_64/CentOS-6.4-x86_64-minimal.iso",
+      "iso_url": "http://ftp.iij.ad.jp/pub/linux/centos/6.5/isos/x86_64/CentOS-6.5-x86_64-minimal.iso",
       "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'vagrant'|sudo -S sh 'shutdown.sh'",
       "ssh_password": "vagrant",
       "ssh_port": 22,
@@ -42,9 +42,9 @@
       "disk_size": 40520,
       "guest_os_type": "RedHat_64",
       "http_directory": "http",
-      "iso_checksum": "4a5fa01c81cc300f4729136e28ebe600",
+      "iso_checksum": "0d9dc37b5dd4befa1c440d2174e88a87",
       "iso_checksum_type": "md5",
-      "iso_url": "http://ftp.riken.jp/Linux/centos/6.4/isos/x86_64/CentOS-6.4-x86_64-minimal.iso",
+      "iso_url": "http://ftp.iij.ad.jp/pub/linux/centos/6.5/isos/x86_64/CentOS-6.5-x86_64-minimal.iso",
       "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'vagrant'|sudo -S sh 'shutdown.sh'",
       "ssh_password": "vagrant",
       "ssh_port": 22,
@@ -59,24 +59,31 @@
     }
   ],
   "post-processors": [
-    "vagrant"
+    {
+      "override": {
+        "virtualbox-iso": {
+          "output": "centos-6-5-x64-virtualbox.box"
+        },
+        "vmware-iso": {
+          "output": "centos-6-5-x64-vmware.box"
+        }
+      },
+      "type": "vagrant"
+    }
   ],
   "provisioners": [
     {
       "override": {
-        "virtualbox-iso": {
+        "virtualbox": {
           "execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'"
         },
-        "vmware-iso": {
+        "vmware": {
           "execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'"
         }
       },
       "scripts": [
-        "scripts/base.sh",
         "scripts/vagrant.sh",
         "scripts/virtualbox.sh",
-        "scripts/epel.sh",
-        "scripts/ansible.sh",
         "scripts/cleanup.sh"
       ],
       "type": "shell"
